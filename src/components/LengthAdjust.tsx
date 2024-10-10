@@ -20,10 +20,12 @@ export default function LengthAdjust({wordLength, setWordLength} : lengthAdjustP
 
     return(
         <div className="length-adjust">
-            <div className="letter-label">Letters:</div>
-            <button className="decrease-btn" onClick={handleDecreaseClick}>-</button>
-            <div className="word-length">{wordLength}</div>
-            <button className="increase-btn" onClick={handleIncreaseClick}>+</button>
+            <div className="length-label">Letters:</div>
+            <div className="length-controls">
+                <button className="decrease-btn" onClick={handleDecreaseClick}>-</button>
+                <div className="word-length">{wordLength}</div>
+                <button className="increase-btn" onClick={handleIncreaseClick}>+</button>
+            </div>
         </div>
     )
 }

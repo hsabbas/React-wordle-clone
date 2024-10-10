@@ -1,3 +1,10 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    cursor: default;
+    user-select: none;
+}
+
 .heading {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 64px;
@@ -5,8 +12,8 @@
 }
 
 .board {
-    margin: 0 auto;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .board-row {
@@ -16,7 +23,6 @@
 }
 
 .letter-square {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 36px;
     font-weight: bold;
     border: black solid 3px;
@@ -24,23 +30,46 @@
     height: 36px;
     width: 36px;
     margin: 8px 4px;
-
 }
 
-.letter-label{
-    font-size: 36px;
+.length-adjust{
+    margin: 25px;
+}
+
+.length-controls{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.length-label{
+    font-size: 42px;
+}
+
+.word-length {
+    font-size: 32px;
+    align-content: center;
+    margin: 0 10px;
 }
 
 .increase-btn{
     font-size: large;
+    width: 28px;
 }
 
 .decrease-btn{
-    font-size: large;
+    font-size: larger;
+    width: 28px;
 }
 
-.length-adjust{
-    
+.start-btn{
+    background-color: green;
+    color: white;
+    font-size: 48px;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 15px;
 }
 
 .absent {
@@ -50,7 +79,7 @@
 
 .present {
     color: white;
-    background-color: rgb(121, 121, 0);
+    background-color: rgb(150, 150, 0);
 }
 
 .correct {
@@ -59,16 +88,30 @@
 }
 
 .keyboard{
-    align-self: center;
-    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 50px;
+}
+
+.keyboard-row{
     display: flex;
     flex-direction: row;
-    align-content: center;
+    justify-content: center;
 }
 
 .keyboard-key{
     border: darkgray solid 1px;
-    padding: .5em;
+    border-radius: 10%;
+    padding: .7em;
+    margin: 2px;
+    width: 15px;
+    align-content: center;
+}
+
+.enter{
+    width: 55px;
+}
+
+.backspace{
+    width: 40px;
 }
 
 .github-logo{

@@ -5,7 +5,9 @@ function App() {
   
   return (
     <>
-      <h1 className='heading'>Fake Wordle</h1>
+      <header>
+        <h1 className='heading'>Fake Wordle</h1>
+      </header>
       <Game/>
       <footer>
         <a href='https://github.com/hsabbas/React-wordle-clone'>

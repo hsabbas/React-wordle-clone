@@ -27,7 +27,7 @@ export default function Game() {
             findLetterStates();
             setCurrGuess('');
 
-            if (currentGuess.localeCompare(word, undefined, {sensitivity: 'base'}) === 0) {
+            if (currentGuess === word) {
                 setPlayState(gameState.gameOver);
                 setWin(true);
             } else if (guessCount === MAX_GUESSES) {
@@ -37,33 +37,33 @@ export default function Game() {
         }
     }
 
-    function findLetterStates(){
+    function findLetterStates() {
         let currentGuessStates: letterState[] = Array(wordLength).fill(letterState.absent);
         let accountedFor: boolean[] = Array(wordLength).fill(false);
 
-        for(let i = 0; i < currentGuess.length; i++){
-            if(currentGuess[i] === word[i]){
+        for (let i = 0; i < currentGuess.length; i++) {
+            if (currentGuess[i] === word[i]) {
                 currentGuessStates[i] = letterState.correct;
                 accountedFor[i] = true;
             }
         }
 
-        for(let i = 0 ; i < currentGuess.length; i ++) {
-            for(let j = 0; j < word.length; j ++){
-                if(currentGuessStates[i] !== letterState.correct && !accountedFor[j] && i !== j && currentGuess[i] === word[j]){
+        for (let i = 0; i < currentGuess.length; i++) {
+            for (let j = 0; j < word.length; j++) {
+                if (currentGuessStates[i] !== letterState.correct && !accountedFor[j] && i !== j && currentGuess[i] === word[j]) {
                     currentGuessStates[i] = letterState.present;
                     accountedFor[j] = true;
                 }
             }
         }
 
-        for(let i = 0; i < wordLength; i++){
+        for (let i = 0; i < wordLength; i++) {
             let currentKeyState = keyboardMap.get(currentGuess[i]);
-            if(currentGuessStates[i] === letterState.correct){
+            if (currentGuessStates[i] === letterState.correct) {
                 keyboardMap.set(currentGuess[i], letterState.correct);
-            } else if(currentGuessStates[i] === letterState.present && currentKeyState !== letterState.correct){
+            } else if (currentGuessStates[i] === letterState.present && currentKeyState !== letterState.correct) {
                 keyboardMap.set(currentGuess[i], letterState.present);
-            } else if (currentGuessStates[i] === letterState.absent && currentKeyState !== letterState.correct && currentKeyState !== letterState.present){
+            } else if (currentGuessStates[i] === letterState.absent && currentKeyState !== letterState.correct && currentKeyState !== letterState.present) {
                 keyboardMap.set(currentGuess[i], letterState.absent);
             }
         }
@@ -86,7 +86,7 @@ export default function Game() {
     }
 
     function startGame() {
-        switch(wordLength){
+        switch (wordLength) {
             case 4:
                 setWord(fourLetterWords[Math.floor(Math.random() * fourLetterWords.length)].toUpperCase());
                 break;
@@ -106,8 +106,9 @@ export default function Game() {
                 setWord("A".repeat(wordLength));
 
         }
-        setKeyboardMap(createKeyboard());
+        setKeyboardMap(createKeyboardMap());
         setPrevGuesses([]);
+        setLetterStates([]);
         setCurrGuess('')
         setPlayState(gameState.playing);
     }
@@ -136,7 +137,7 @@ export default function Game() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [playState, currentGuess, prevGuesses, wordLength]);
 
-    function createKeyboard(): Map<string, letterState> {
+    function createKeyboardMap(): Map<string, letterState> {
         let map = new Map();
         map.set('Q', letterState.unused);
         map.set('W', letterState.unused);
@@ -157,7 +158,6 @@ export default function Game() {
         map.set('J', letterState.unused);
         map.set('K', letterState.unused);
         map.set('L', letterState.unused);
-        map.set('Enter', letterState.unused);
         map.set('Z', letterState.unused);
         map.set('X', letterState.unused);
         map.set('C', letterState.unused);
@@ -165,7 +165,6 @@ export default function Game() {
         map.set('B', letterState.unused);
         map.set('N', letterState.unused);
         map.set('M', letterState.unused);
-        map.set('Backspace', letterState.unused);
         return map;
     }
 
@@ -174,17 +173,17 @@ export default function Game() {
             {playState === gameState.initial &&
                 <div className="game-controls">
                     <LengthAdjust wordLength={wordLength} setWordLength={setWordLength} />
-                    <button className="start-btn" onClick={startGame}>Play</button>
+                    <button className="start-btn" onClick={startGame}>Play!</button>
                 </div>
             }
 
             {(playState === gameState.playing || playState === gameState.gameOver) && <Board word={word} currentGuess={currentGuess} prevGuesses={prevGuesses} letterStates={letterStates} />}
-            {playState === gameState.playing && <Keyboard keyboardStates={keyboardMap} handleKey={handleKey}/>}
+            {playState === gameState.playing && <Keyboard keyboardStates={keyboardMap} handleKey={handleKey} />}
             {playState === gameState.gameOver && <div>
                 <Results result={win} guessCount={prevGuesses.length} />
                 <div className="game-controls">
                     <LengthAdjust wordLength={wordLength} setWordLength={setWordLength} />
-                    <button className="start-btn" onClick={startGame}>Play</button>
+                    <button className="start-btn" onClick={startGame}>Play!</button>
                 </div>
             </div>}
         </>
