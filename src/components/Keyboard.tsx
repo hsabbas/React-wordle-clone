@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 import { letterState } from "../constants/constants";
 
 export default function Keyboard({keyboardStates, handleKey}: {keyboardStates: Map<string, letterState>, handleKey: (key: string) => void}){
