@@ -6,23 +6,23 @@ type boardProps = {
     prevGuesses: string[],
     currentGuess: string,
     letterStates: letterState[][]
-    word: string
+    wordLength: number
 }
 
-export default function Board({ prevGuesses, currentGuess, letterStates, word }: boardProps) {
+export default function Board({ prevGuesses, currentGuess, letterStates, wordLength }: boardProps) {
     let key: number = 0;
 
     let boardRows: ReactNode[] = [];
     prevGuesses.forEach((guess, index) => {
-        boardRows.push(<BoardRow word={word} guess={guess} letterStates={letterStates[index]} key={key + index}/>);
+        boardRows.push(<BoardRow wordLength={wordLength} guess={guess} letterStates={letterStates[index]} key={key + index}/>);
     })
 
     if(prevGuesses.length < MAX_GUESSES) {
         key += prevGuesses.length;
-        boardRows.push(<BoardRow word={word} guess={currentGuess}  key={key}/>)
+        boardRows.push(<BoardRow wordLength={wordLength} guess={currentGuess}  key={key}/>)
         
         for(let i = key + 1; i < MAX_GUESSES; i++) {
-            boardRows.push(<BoardRow word={word} guess={''} key={i}/>);
+            boardRows.push(<BoardRow wordLength={wordLength} guess={''} key={i}/>);
         }
     }
 
@@ -34,14 +34,13 @@ export default function Board({ prevGuesses, currentGuess, letterStates, word }:
 }
 
 type boardRowProps = {
-    word: string,
+    wordLength: number,
     guess?: string,
     letterStates?: letterState[],
 }
 
-function BoardRow({word, guess, letterStates} : boardRowProps){
+function BoardRow({wordLength, guess, letterStates} : boardRowProps){
     let letterSquares: ReactNode[] = [];
-    let wordLength = word.length;
 
     if(!guess){
         for(let i = 0; i < wordLength; i++){

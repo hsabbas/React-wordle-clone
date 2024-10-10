@@ -73,18 +73,6 @@ export default function Game() {
         setLetterStates(newLetterStates);
     }
 
-    function backspace(): void {
-        if (currentGuess.length > 0) {
-            setCurrGuess(currentGuess.slice(0, -1));
-        }
-    }
-
-    function keypress(key: string): void {
-        if (currentGuess.length < wordLength) {
-            setCurrGuess(currentGuess + key);
-        }
-    }
-
     function startGame() {
         switch (wordLength) {
             case 4:
@@ -120,11 +108,15 @@ export default function Game() {
             }
 
             if (key === "Backspace") {
-                backspace();
+                if (currentGuess.length > 0) {
+                    setCurrGuess(currentGuess.slice(0, -1));
+                }
             }
 
             if (currentGuess.length < wordLength && key.match(/^[A-Za-z]$/)) {
-                keypress(key.toUpperCase());
+                if (currentGuess.length < wordLength) {
+                    setCurrGuess(currentGuess + key.toUpperCase());
+                }
             }
         }
     }
@@ -137,36 +129,6 @@ export default function Game() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [playState, currentGuess, prevGuesses, wordLength]);
 
-    function createKeyboardMap(): Map<string, letterState> {
-        let map = new Map();
-        map.set('Q', letterState.unused);
-        map.set('W', letterState.unused);
-        map.set('E', letterState.unused);
-        map.set('R', letterState.unused);
-        map.set('T', letterState.unused);
-        map.set('Y', letterState.unused);
-        map.set('U', letterState.unused);
-        map.set('I', letterState.unused);
-        map.set('O', letterState.unused);
-        map.set('P', letterState.unused);
-        map.set('A', letterState.unused);
-        map.set('S', letterState.unused);
-        map.set('D', letterState.unused);
-        map.set('F', letterState.unused);
-        map.set('G', letterState.unused);
-        map.set('H', letterState.unused);
-        map.set('J', letterState.unused);
-        map.set('K', letterState.unused);
-        map.set('L', letterState.unused);
-        map.set('Z', letterState.unused);
-        map.set('X', letterState.unused);
-        map.set('C', letterState.unused);
-        map.set('V', letterState.unused);
-        map.set('B', letterState.unused);
-        map.set('N', letterState.unused);
-        map.set('M', letterState.unused);
-        return map;
-    }
 
     return (
         <>
@@ -177,7 +139,7 @@ export default function Game() {
                 </div>
             }
 
-            {(playState === gameState.playing || playState === gameState.gameOver) && <Board word={word} currentGuess={currentGuess} prevGuesses={prevGuesses} letterStates={letterStates} />}
+            {(playState === gameState.playing || playState === gameState.gameOver) && <Board wordLength={word.length} currentGuess={currentGuess} prevGuesses={prevGuesses} letterStates={letterStates} />}
             {playState === gameState.playing && <Keyboard keyboardStates={keyboardMap} handleKey={handleKey} />}
             {playState === gameState.gameOver && <div>
                 <Results result={win} guessCount={prevGuesses.length} />
@@ -188,4 +150,36 @@ export default function Game() {
             </div>}
         </>
     )
+}
+
+
+function createKeyboardMap(): Map<string, letterState> {
+    let map = new Map();
+    map.set('Q', letterState.unused);
+    map.set('W', letterState.unused);
+    map.set('E', letterState.unused);
+    map.set('R', letterState.unused);
+    map.set('T', letterState.unused);
+    map.set('Y', letterState.unused);
+    map.set('U', letterState.unused);
+    map.set('I', letterState.unused);
+    map.set('O', letterState.unused);
+    map.set('P', letterState.unused);
+    map.set('A', letterState.unused);
+    map.set('S', letterState.unused);
+    map.set('D', letterState.unused);
+    map.set('F', letterState.unused);
+    map.set('G', letterState.unused);
+    map.set('H', letterState.unused);
+    map.set('J', letterState.unused);
+    map.set('K', letterState.unused);
+    map.set('L', letterState.unused);
+    map.set('Z', letterState.unused);
+    map.set('X', letterState.unused);
+    map.set('C', letterState.unused);
+    map.set('V', letterState.unused);
+    map.set('B', letterState.unused);
+    map.set('N', letterState.unused);
+    map.set('M', letterState.unused);
+    return map;
 }
