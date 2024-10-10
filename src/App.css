@@ -1,0 +1,79 @@
+.heading {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 64px;
+    margin: 50px 0;
+}
+
+.board {
+    margin: 0 auto;
+    align-content: center;
+}
+
+.board-row {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.letter-square {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    border: black solid 3px;
+    padding: .5em;
+    height: 36px;
+    width: 36px;
+    margin: 8px 4px;
+
+}
+
+.letter-label{
+    font-size: 36px;
+}
+
+.increase-btn{
+    font-size: large;
+}
+
+.decrease-btn{
+    font-size: large;
+}
+
+.length-adjust{
+    
+}
+
+.absent {
+    color: white;
+    background-color: grey;
+}
+
+.present {
+    color: white;
+    background-color: rgb(121, 121, 0);
+}
+
+.correct {
+    color: white;
+    background-color: green;
+}
+
+.keyboard{
+    align-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.keyboard-key{
+    border: darkgray solid 1px;
+    padding: .5em;
+}
+
+.github-logo{
+    position: fixed;
+    left: 97%;
+    top: 95%;
+    width: 50px;
+}
