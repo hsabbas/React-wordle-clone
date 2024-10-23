@@ -1,5 +1,6 @@
 import './App.css'
 import Game from './components/Game'
+import imgUrl from '../images/github-mark.png'
 
 function App() {
   
@@ -11,7 +12,7 @@ function App() {
       <Game/>
       <footer>
         <a href='https://github.com/hsabbas/React-wordle-clone'>
-          <img className='github-logo' alt='Github Repo' src='images\github-mark.png'></img>
+          <img className='github-logo' alt='Github Repo' src={imgUrl}></img>
         </a>
       </footer>
     </>
