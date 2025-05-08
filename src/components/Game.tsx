@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import LengthAdjust from "./LengthAdjust";
 import Board from "./Board";
 import { gameState, letterState, MAX_GUESSES } from "../constants/constants";
-import Results from "./Results";
 import { fiveLetterWords } from "../constants/fiveLetterWordsList";
 import { sixLetterWords } from "../constants/sixLetterWordsList";
 import { sevenLetterWords } from "../constants/sevenLetterWordsList";
@@ -142,7 +141,9 @@ export default function Game() {
             {(playState === gameState.playing || playState === gameState.gameOver) && <Board wordLength={word.length} currentGuess={currentGuess} prevGuesses={prevGuesses} letterStates={letterStates} />}
             {playState === gameState.playing && <Keyboard keyboardStates={keyboardMap} handleKey={handleKey} />}
             {playState === gameState.gameOver && <div>
-                <Results result={win} guessCount={prevGuesses.length} />
+                <div className="result">
+                    {`You ${win ? 'won' : 'lost'} after ${prevGuesses.length} guesses!`}
+                </div>
                 <div className="game-controls">
                     <LengthAdjust wordLength={wordLength} setWordLength={setWordLength} />
                     <button className="start-btn" onClick={startGame}>Play!</button>
